@@ -4,16 +4,19 @@ var numberOfButtons = document.querySelectorAll(".drum").length;
 for (var i = 0; i < numberOfButtons; i++){
     document.querySelectorAll(".drum")[i].addEventListener("click", function () {
         var buttonPressed = this.innerHTML;
+        buttonAnimation(buttonPressed);
         makeSound(buttonPressed);
     })
 }
-//Detecting which keyboard key was pressed 
-for (var i = 0; i < numberOfButtons; i++){
-    document.addEventListener("keypress", function(event) {
-        makeSound(event.key);
-    })
-}
 
+//Detecting which keyboard key was pressed 
+    document.addEventListener("keypress", function(event) {
+    buttonAnimation(event.key)
+    makeSound(event.key);
+    })
+
+
+//Function for making sound
 function makeSound (key) {
     switch(key) {
         case "w":
@@ -51,6 +54,16 @@ function makeSound (key) {
             snare.play();
         break;
     }
+}
+
+//Animation function
+function buttonAnimation (currentKey) {
+    var activeKey = document.querySelector("." + currentKey);
+    activeKey.classList.add("pressed");
+
+    setTimeout(function () {
+        activeKey.classList.remove("pressed");
+    }, 100)
 }
 
 
